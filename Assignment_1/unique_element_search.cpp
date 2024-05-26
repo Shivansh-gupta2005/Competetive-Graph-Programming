@@ -2,50 +2,33 @@ class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
         
-        int s = 0;
-        int e = nums.size() - 1;
-        int mid ;
+        int start = 0;
+        int end = nums.size() - 1;
+        int mid;
 
-        while(s <= e){
-        
-        mid = s + (e - s)/2;
+        while (start <= end) {
+            mid = start + (end - start) / 2;
 
-        if(s == e){
-            return nums[s];
-        }
-
-        if(mid & 1){
-        //   odd
-        if(nums[mid] == nums[mid + 1]){
-            e = mid - 1;
-        }
-        else{
-            s = mid + 1;
-        }
-
-        }
-        else{
-            // even
-
-            // left
-
-            if(nums[mid] == nums[ mid + 1 ]){
-                s = mid + 2;
+            if (start == end) {
+                return nums[start];
             }
 
-            // right
-
-            else if(nums[mid] == nums[mid-1]){
-             e = mid - 2;
-            }
-
-            // unique pe hi hai 
-             
-             else{
-               return nums[mid] ;
-             }
-        } 
+            if (mid % 2 == 1) { // odd
+                if (nums[mid] == nums[mid + 1]) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            } else { // even
+                if (nums[mid] == nums[mid + 1]) { // left
+                    start = mid + 2;
+                } else if (nums[mid] == nums[mid - 1]) { // right
+                    end = mid - 2;
+                } else { // unique
+                    return nums[mid];
+                }
+            } 
         }
-        return -1;
+        return -1; // Not found
     }
 };
